@@ -23,7 +23,6 @@ export class MyFormComponent implements OnInit {
       .pipe(
         tap(item => {
           this.dataJson = item.items
-          console.log(this.dataJson)
         })
       ).subscribe()
   }
