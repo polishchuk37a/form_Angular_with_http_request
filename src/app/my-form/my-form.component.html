@@ -1,4 +1,17 @@
-<form class="form">
-    <input #text class="input" type="text">
-    <button type="button" class="btn" (click)="getInfo(text.value)">Get data</button>
+<form class="form" [formGroup]="form">
+    <div class="get_info-container">
+        <input placeholder="Write something to find" class="input" type="text" formControlName="userInputText">
+        <button type="button" class="btn">Get data</button>
+    </div>
+
+    <div class="cards-container">
+        <div class="card" *ngFor="let cards of dataJson">
+            <div class="info_text">
+                <h1>Title: {{cards.title}}</h1>
+                <h1>Country: {{cards.country}}</h1>
+                <h1>Year: {{cards.start_year}}</h1>
+            </div>
+        </div>
+    </div>
+
 </form>
