@@ -21,19 +21,16 @@ export class MyFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //getting written word from input using switchMap
     this.form.get("userInputText")?.valueChanges.pipe(
       switchMap((val) => {
           console.log(val);
           return this.httpService.getData(val)
         }),
+      //display cards with got data from switchMap
       tap(item => {
           this.dataJson = item.items
       })
     ).subscribe()
   }
-
-  get f(){
-    return this.form.controls;
-  }
-
 }
