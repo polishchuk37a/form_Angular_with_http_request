@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceService} from "../service.service";
-import {tap} from "rxjs/operators";
+import {delay, switchMap, tap} from "rxjs/operators";
 import {Data} from "../data";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
@@ -20,41 +20,20 @@ export class MyFormComponent implements OnInit {
     })
   }
 
-  //searching data with the written word in input from http request
-  // getInfo(writtenWord: string) {
-  //   this.httpService.getData(writtenWord)
-  //     .pipe(
-  //       tap(item => {
-  //         this.dataJson = item.items
-  //       })
-  //     ).subscribe()
-  // }
-
   ngOnInit(): void {
-    this.form.get("userInputText")?.valueChanges.subscribe(selectedValue =>{
-      this.httpService.getData(selectedValue)
-        .pipe(
-          tap(item => {
-            this.dataJson = item.items
-          })
-        ).subscribe()
-
-      console.log(this.form.get("userInputText")?.value)
-    })
+    this.form.get("userInputText")?.valueChanges.pipe(
+      switchMap((val) => {
+          console.log(val);
+          return this.httpService.getData(val)
+        }),
+      tap(item => {
+          this.dataJson = item.items
+      })
+    ).subscribe()
   }
 
-<<<<<<< HEAD
   get f(){
     return this.form.controls;
-=======
-  getInfo(writtenWord: string) {
-    this.httpService.getData(writtenWord)
-      .pipe(
-        tap(item => {
-          this.dataJson = item.items
-        })
-      ).subscribe()
->>>>>>> 97791655e2b3b0795e063059ffab6c53b7d29240
   }
 
 }
