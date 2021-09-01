@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 <form class="form" [formGroup]="form">
     <div class="get_info-container">
         <input placeholder="Write something to find" class="input" type="text" formControlName="userInputText">
         <button type="button" class="btn">Get data</button>
+=======
+<form class="form">
+    <div class="get_info-container">
+        <input #input_text placeholder="Write something to find" class="input" type="text">
+        <button type="button" class="btn" (click)="getInfo(input_text.value)">Get data</button>
+>>>>>>> 97791655e2b3b0795e063059ffab6c53b7d29240
     </div>
 
     <div class="cards-container">

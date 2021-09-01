@@ -43,8 +43,18 @@ export class MyFormComponent implements OnInit {
     })
   }
 
+<<<<<<< HEAD
   get f(){
     return this.form.controls;
+=======
+  getInfo(writtenWord: string) {
+    this.httpService.getData(writtenWord)
+      .pipe(
+        tap(item => {
+          this.dataJson = item.items
+        })
+      ).subscribe()
+>>>>>>> 97791655e2b3b0795e063059ffab6c53b7d29240
   }
 
 }
