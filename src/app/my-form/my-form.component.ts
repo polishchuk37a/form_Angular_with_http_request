@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceService} from "../service.service";
-import {delay, filter, switchMap, tap} from "rxjs/operators";
-import {Data} from "../data";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { filter, switchMap, tap, throttleTime } from "rxjs/operators";
+import { Data} from "../data";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-my-form',
@@ -23,10 +23,10 @@ export class MyFormComponent implements OnInit {
   ngOnInit(): void {
     //getting written word from input using switchMap
     this.form.get("userInputText")?.valueChanges.pipe(
-      // filter(x => x.length > 4),
-      delay(3000),
+      throttleTime(300),
+      filter(text => text.length > 4), //if written text less that 4 symbols - do not make a request
       switchMap((val) => {
-        console.log(val);
+        // console.log(val);
         return this.httpService.getData(val)
       }),
       //display cards with got data from switchMap
